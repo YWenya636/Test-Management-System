@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: test-management
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_management?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: test
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.test: DEBUG

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: test-management
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.test: debug

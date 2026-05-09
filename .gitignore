@@ -1,0 +1,24 @@
+# === Java 项目编译产物（必须忽略）===
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# === IDE 配置文件（VS Code/Idea）===
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# === 日志文件 ===
+*.log
+logs/
+
+# === 系统缓存文件 ===
+.DS_Store
+Thumbs.db
+
+# === 测试相关 ===
+jacoco.exec
