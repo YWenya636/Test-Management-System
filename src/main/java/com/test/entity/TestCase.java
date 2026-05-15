@@ -4,10 +4,13 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+
 @Data
 public class TestCase {
-
     private Long id;
+    
+    @NotBlank(message = "标题不能为空")
     private String title;
     private String module;
     private String priority;

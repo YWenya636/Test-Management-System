@@ -3,6 +3,9 @@ package com.test.controller;
 import com.test.common.Result;
 import com.test.entity.TestCase;
 import com.test.service.TestCaseService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +19,7 @@ public class TestCaseController {
     private TestCaseService testCaseService;
 
     @PostMapping
-    public Result<TestCase> create(@RequestBody TestCase testCase) {
+    public Result<TestCase> create(@Valid @RequestBody TestCase testCase) {
         TestCase created = testCaseService.createTestCase(testCase);
         return created != null ? Result.success(created) : Result.error("创建失败");
     }
