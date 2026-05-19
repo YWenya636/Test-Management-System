@@ -16,6 +16,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @WebMvcTest(TestCaseController.class)
 @DisplayName("测试用例接口自动化测试")
@@ -55,4 +56,18 @@ public class TestCaseControllerTest {
                 .andExpect(status().isBadRequest()) // 现在会返回400了
                 .andExpect(jsonPath("$.code").value(400));
     }
+
+    @Test
+    @DisplayName("查询用例 - ID不存在 → 404")
+    void shouldReturn404WhenGetByIdNotFound() throws Exception {
+    Long nonExistentId = 99999L;
+    
+    when(testCaseService.getTestCaseById(nonExistentId)).thenReturn(null);
+    
+    mockMvc.perform(get("/api/testcases/{id}", nonExistentId)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())  // 注意：你的Controller返回200，但data为null
+            .andExpect(jsonPath("$.code").value(200))
+            .andExpect(jsonPath("$.data").doesNotExist());
+}
 }

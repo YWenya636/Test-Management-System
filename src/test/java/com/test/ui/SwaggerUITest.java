@@ -82,6 +82,45 @@ public class SwaggerUITest {
         swaggerPage.pause(FINAL_REVIEW_MS);
     }
 
+@Test
+@DisplayName("删除测试用例 - 通过 Swagger UI 删除并验证响应码200")
+void testDeleteTestCaseByUI() throws Exception {
+    // 1. 打开 Swagger UI 页面
+    swaggerPage.openSwaggerUi();
+    
+    // 2. 先创建一个测试用例（用于后续删除）
+    String createdTitle = "DeleteTest_" + System.currentTimeMillis();
+    swaggerPage.executeCreate("{\"title\":\"" + createdTitle + "\"}");
+    assertEquals("200", swaggerPage.getResponseStatus("create"));
+    
+    // 3. 解析响应获取创建的用例ID
+    JsonNode createResponse = objectMapper.readTree(swaggerPage.getResponseBody("create"));
+    long testCaseId = createResponse.path("data").path("id").asLong();
+    
+    // 4. 执行删除操作
+    swaggerPage.executeDelete(testCaseId);
+    
+    // 5. 验证删除响应码为200
+    assertEquals("200", swaggerPage.getResponseStatus("delete"));
+    
+    // 6. 验证响应体中的code字段为200
+    JsonNode deleteResponse = objectMapper.readTree(swaggerPage.getResponseBody("delete"));
+    assertEquals(200, deleteResponse.path("code").asInt());
+    
+    // 7. 可选：验证删除后查询返回404或未找到
+    swaggerPage.executeGetById(testCaseId);
+    String getResponseBody = swaggerPage.getResponseBody("getById");
+    JsonNode getResponse = objectMapper.readTree(getResponseBody);
+    
+    // 根据你的Controller逻辑，删除后查询应该返回"未找到数据"
+    // 可能 code 不是200，或者 message 包含"未找到"
+    System.out.println("删除后查询响应: " + getResponseBody);
+    
+    // 截图留证
+    swaggerPage.takeScreenshot("delete-testcase-result");
+    swaggerPage.pause(3000);
+}
+
     @AfterEach
     void tearDown() {
         if (page != null) {

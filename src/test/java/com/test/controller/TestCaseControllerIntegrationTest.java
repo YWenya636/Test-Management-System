@@ -180,4 +180,19 @@ class TestCaseControllerIntegrationTest {
                 .andExpect(jsonPath("$.data", hasSize(greaterThanOrEqualTo(1))))
                 .andExpect(jsonPath("$.data[0].title", containsString("登录")));
     }
+
+     @Test
+    @DisplayName("异常场景 - 创建测试用例时标题为空应返回400错误")
+    void createTestCase_WithEmptyTitle_ShouldReturnBadRequest() throws Exception {
+        // 准备一个标题为空的测试用例对象
+        TestCase invalidTestCase = new TestCase();
+        invalidTestCase.setTitle(""); // 标题为空
+        invalidTestCase.setSteps("这是一个步骤");
+
+        // 执行 POST 请求并验证响应状态码为 400
+        mockMvc.perform(post("/api/testcases")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidTestCase)))
+                .andExpect(status().isBadRequest());
+    }
 }
