@@ -9,9 +9,13 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.test.ui.page.SwaggerPage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.net.HttpURLConnection;
+import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,6 +50,8 @@ public class SwaggerUITest {
     @Test
     @DisplayName("Run CRUD walkthrough from Swagger UI")
     void testCrudWalkthroughByUI() throws Exception {
+        Assumptions.assumeTrue(isSwaggerUiAvailable(), "Swagger UI is not available on localhost:8080");
+
         swaggerPage.openSwaggerUi();
 
         swaggerPage.executeList(null);
@@ -80,6 +86,21 @@ public class SwaggerUITest {
 
         swaggerPage.takeScreenshot("swagger-ui-test");
         swaggerPage.pause(FINAL_REVIEW_MS);
+    }
+
+    private boolean isSwaggerUiAvailable() {
+        try {
+            HttpURLConnection connection = (HttpURLConnection) URI
+                    .create("http://localhost:8080/swagger-ui/index.html")
+                    .toURL()
+                    .openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(1000);
+            connection.setReadTimeout(1000);
+            return connection.getResponseCode() < 500;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     @AfterEach

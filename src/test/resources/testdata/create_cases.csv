@@ -1,0 +1,7 @@
+title,module,priority,expectedStatus
+Login succeeds with valid account,User Center,P0,200
+Order succeeds when stock is enough,Order Management,P0,200
+,User Center,P0,400
+Payment callback retry,Payment Center,P1,200
+Report export permission check,Report Center,P2,200
+Notification template preview,Message Center,P3,200

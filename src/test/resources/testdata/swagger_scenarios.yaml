@@ -1,0 +1,31 @@
+- scenario: "Create testcase through Swagger UI"
+  steps:
+    - action: "openSwaggerUi"
+    - action: "create"
+      body: '{"title":"YAML driven create","module":"System Management","priority":"P0"}'
+    - action: "assertStatus"
+      operationId: "create"
+      expected: "200"
+    - action: "captureId"
+      operationId: "create"
+      variable: "createdId"
+
+- scenario: "Update testcase through Swagger UI"
+  steps:
+    - action: "update"
+      idVariable: "createdId"
+      body: '{"title":"YAML driven update","module":"System Management","priority":"P1"}'
+    - action: "assertStatus"
+      operationId: "update"
+      expected: "200"
+    - action: "assertBodyContains"
+      operationId: "update"
+      expected: "YAML driven update"
+
+- scenario: "Delete testcase through Swagger UI"
+  steps:
+    - action: "delete"
+      idVariable: "createdId"
+    - action: "assertStatus"
+      operationId: "delete"
+      expected: "200"

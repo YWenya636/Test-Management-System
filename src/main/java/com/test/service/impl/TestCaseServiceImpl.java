@@ -22,6 +22,9 @@ public class TestCaseServiceImpl implements TestCaseService {
     @Override
     public TestCase createTestCase(TestCase testCase) {
         LocalDateTime now = LocalDateTime.now();
+        if (testCase.getStatus() == null || testCase.getStatus().isBlank()) {
+            testCase.setStatus("DRAFT");
+        }
         testCase.setCreateTime(now);
         testCase.setUpdateTime(now);
         testCaseMapper.insert(testCase);
