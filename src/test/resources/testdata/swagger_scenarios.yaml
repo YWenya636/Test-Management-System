@@ -29,3 +29,18 @@
     - action: "assertStatus"
       operationId: "delete"
       expected: "200"
+
+# ... 保留你原有的内容 ...
+
+- scenario: "Update testcase through Swagger UI"
+  steps:
+    - action: "openSwaggerUi"
+    - action: "update"
+      idVariable: "createdId"
+      body: '{"title":"YAML driven update","module":"System Management","priority":"P1"}'
+    - action: "assertStatus"
+      operationId: "update"
+      expected: "200"
+    - action: "assertBodyContains"
+      operationId: "update"
+      expected: "YAML driven update"

@@ -36,3 +36,61 @@
     "expectedStatus": 200
   }
 ]
+
+
+[
+  {
+    "title": "Login succeeds with valid account",
+    "module": "User Center",
+    "priority": "P0",
+    "expectedStatus": 200
+  },
+  {
+    "title": "Order succeeds when stock is enough",
+    "module": "Order Management",
+    "priority": "P0",
+    "expectedStatus": 200
+  },
+  {
+    "title": "",
+    "module": "User Center",
+    "priority": "P0",
+    "expectedStatus": 400
+  },
+  {
+    "title": "Payment callback retry",
+    "module": "Payment Center",
+    "priority": "P1",
+    "expectedStatus": 200
+  },
+  {
+    "title": "Report export permission check",
+    "module": "Report Center",
+    "priority": "P2",
+    "expectedStatus": 200
+  },
+  {
+    "title": "Notification template preview",
+    "module": "Message Center",
+    "priority": "P3",
+    "expectedStatus": 200
+  },
+  {
+    "title": "User profile update with valid data",
+    "module": "User Center",
+    "priority": "P1",
+    "expectedStatus": 200
+  },
+  {
+    "title": "Product search with filters",
+    "module": "Product Management",
+    "priority": "P2",
+    "expectedStatus": 200
+  },
+  {
+    "title": "Logout clears session",
+    "module": "User Center",
+    "priority": "P3",
+    "expectedStatus": 200
+  }
+]

@@ -1,0 +1,43 @@
+name: "修改测试用例"
+description: "通过API修改已有的测试用例"
+variables:
+  base_url: "http://localhost:8080"
+  test_case_id: "TC-001"
+  updated_title: "更新后的用例标题"
+  updated_description: "这是更新后的用例描述"
+  updated_status: "PASSED"
+
+steps:
+  - name: "登录获取token"
+    action: "post"
+    url: "${base_url}/api/auth/login"
+    headers:
+      Content-Type: "application/json"
+    body:
+      username: "admin"
+      password: "123456"
+    extract:
+      token: "$.data.token"
+    
+  - name: "修改用例信息"
+    action: "put"
+    url: "${base_url}/api/test-cases/${test_case_id}"
+    headers:
+      Content-Type: "application/json"
+      Authorization: "Bearer ${token}"
+    body:
+      title: "${updated_title}"
+      description: "${updated_description}"
+      status: "${updated_status}"
+      
+  - name: "验证修改结果"
+    action: "get"
+    url: "${base_url}/api/test-cases/${test_case_id}"
+    headers:
+      Authorization: "Bearer ${token}"
+    expected:
+      status: 200
+      body_contains:
+        - "${updated_title}"
+        - "${updated_description}"
+        - "${updated_status}"
