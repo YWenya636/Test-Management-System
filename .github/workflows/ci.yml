@@ -36,7 +36,7 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: mvn clean test -Dtest="!com.test.ui.*"
+        run: mvn clean test -Dtest='!SwaggerUITest'
 
       - name: Generate JaCoCo report
         run: mvn jacoco:report
