@@ -42,7 +42,7 @@ jobs:
         run: mvn jacoco:report
 
       - name: Check JaCoCo coverage gate
-        run: mvn jacoco:check
+        run: mvn jacoco:check@check
 
       - name: Upload test results
         if: always()
