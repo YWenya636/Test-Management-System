@@ -120,7 +120,7 @@ void testDeleteTestCaseByUI() throws Exception {
     swaggerPage.takeScreenshot("delete-testcase-result");
     swaggerPage.pause(3000);
 }
-
+    
     @AfterEach
     void tearDown() {
         if (page != null) {
