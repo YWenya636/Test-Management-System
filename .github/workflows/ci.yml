@@ -36,10 +36,13 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: mvn clean test -Dtest='TestCaseServiceTest,TestCaseControllerTest'
+        run: mvn clean test
 
       - name: Generate JaCoCo report
         run: mvn jacoco:report
+
+      - name: Check JaCoCo coverage gate
+        run: mvn jacoco:check
 
       - name: Upload test results
         if: always()
