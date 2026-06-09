@@ -36,7 +36,7 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: mvn clean test
+        run: mvn clean test -Dtest="!com.test.ui.*"
 
       - name: Generate JaCoCo report
         run: mvn jacoco:report

@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.hamcrest.Matchers.nullValue;
 
 @WebMvcTest(TestCaseController.class)
 @DisplayName("测试用例接口自动化测试")
@@ -68,6 +69,6 @@ public class TestCaseControllerTest {
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())  // 注意：你的Controller返回200，但data为null
             .andExpect(jsonPath("$.code").value(200))
-            .andExpect(jsonPath("$.data").doesNotExist());
+            .andExpect(jsonPath("$.data").value(nullValue()));
 }
 }

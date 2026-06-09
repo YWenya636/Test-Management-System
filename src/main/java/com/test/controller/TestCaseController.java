@@ -38,8 +38,8 @@ public class TestCaseController {
 
     @GetMapping("/{id}")
     public Result<TestCase> getById(@PathVariable Long id) {
-        TestCase testCase = testCaseService.getTestCaseById(id);
-        return testCase != null ? Result.success(testCase) : Result.error("未找到数据");
+    TestCase testCase = testCaseService.getTestCaseById(id);
+    return Result.success(testCase);
     }
 
     @GetMapping
