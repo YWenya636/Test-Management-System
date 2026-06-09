@@ -12,3 +12,4 @@
 ## 运行项目
 ```bash
 mvn spring-boot:run
+- 测试 CI
